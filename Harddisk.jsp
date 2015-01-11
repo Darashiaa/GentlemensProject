@@ -12,7 +12,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="style.css" />
+		<link rel="stylesheet" type="text/css" href="style/style.css" />
 	</head>
 	
 	<body>
@@ -24,7 +24,7 @@
 	  </div><!--close welcome-->
       <div id="menu_items">
 	   <ul><li>Home</li>
-  <li class="current"><a href="pcbuilder.jsp">Build your own PC</a></li>
+  <li class="current"><a href="index2---MARTIN.jsp">Build your own PC</a></li>
   <li>
     Our products
     <ul>
@@ -32,7 +32,7 @@
 				<li><a href="Motherboard.jsp">Motherboards</a></li>
 				<li><a href="Memory.jsp">Memory</a></li>
 				<li><a href="Case.jsp">Case</a></li>
-				<li><a href="Harddisk.jsp">hardDisk</a></li>
+				<li><a href="Harddisk.jsp">Harddisk</a></li>
 				<li><a href="Videocard.jsp">Videocard</a></li>
 				<li><a href="Powersupply.jsp">Power Supply</a></li>
     </ul>
@@ -49,10 +49,11 @@
 	</div><!--close site_content-->
     </p>
 		<div id="main_wrapper" width='800px' height='720px'>		
-		 <%			
+		 <%		
+            String product = "Harddisk";
             try {
                 Connection con = (Connection) DriverManager.getConnection("jdbc:neo4j://localhost:7474/");
-                String query = ("Match (n:`Harddisk`) return n");
+                String query = ("Match (n:`"+product+"`) return n");
             try (PreparedStatement stmt = con.prepareStatement(query)) {
             try(ResultSet rs = stmt.executeQuery()){
 				while (rs.next()) {

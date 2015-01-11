@@ -23,10 +23,10 @@ create table userLogin (
 INSERT INTO userLogin (username,userpassword) VALUES ('Sharelison','Sharelison');
 
 create table product (
- productname varchar(200),
+ productname varchar(300),
  price decimal(9,2),
- link varchar(250),
- photo varchar (250),
+ link varchar(350),
+ photo varchar (350),
  clicked int,
  primary key(link)
 );

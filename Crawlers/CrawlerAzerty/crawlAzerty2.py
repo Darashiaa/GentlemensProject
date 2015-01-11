@@ -15,7 +15,7 @@ def writeToFile(textfile, itemUrl):
 
 def writeProducToFile(textfile, label, productDescription):
     textfile = open(textfile, "a")
-    textfile.write(label + cfg.seperatorData + productDescription.encode(cfg.encoding) + cfg.seperatorFields)
+    textfile.write(label + cfg.seperatorData + productDescription.encode(cfg.encoding))
     textfile.close()
 
 

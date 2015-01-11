@@ -12,7 +12,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="style.css" />
+		<link rel="stylesheet" type="text/css" href="style/style.css" />
 	</head>
 	
 	<body>
@@ -23,39 +23,37 @@
 	    <h1><a href="#">G.entlemens</a></h1>
 	  </div><!--close welcome-->
       <div id="menu_items">
-	    <ul id="menu">
-          <li><a href="index.html">Home</a></li>
-          <li class="current"><a href="index2.jsp">Build your own PC</a></li>
-		  <li><a href="#">Our Products</a></li>
-		  <li><a href="contact.html">Contact Us</a></li>
-			<ul>
-				<li><a href="Processor.jsp">Processor</a></li>
+	   <ul><li>Home</li>
+  <li class="current"><a href="index2---MARTIN.jsp">Build your own PC</a></li>
+  <li>
+    Our products
+    <ul>
+      			<li><a href="Processor.jsp">Processors</a></li>
 				<li><a href="Motherboard.jsp">Motherboards</a></li>
 				<li><a href="Memory.jsp">Memory</a></li>
-				<li><a href="Harddisk.jsp">Harddisk</a></li>
 				<li><a href="Case.jsp">Case</a></li>
+				<li><a href="Harddisk.jsp">Harddisk</a></li>
 				<li><a href="Videocard.jsp">Videocard</a></li>
-				<li><a href="PowerSupply.jsp">Power Supply</a></li>
-			</ul>
-          
-        </ul>
+				<li><a href="Powersupply.jsp">Power Supply</a></li>
+    </ul>
+  </li>
+ 
+  <li><a href="contact.html">Contact Us</a></li>
+</ul>
       </div><!--close menu-->
     </div><!--close menubar-->	
-    
+   <p>
 	<div id="site_content">	
 		<h2>Welcome to the ultimate PC building website</h2>
-		<p>The latest project of the G.entlemens allows you to keep a close eye on the fluxuating PC part prizes. Also if you're interested in building your own PC from scratch w'll give you a step by step tutorial just click on the PC builder link in the navigation tab!</p>
+		<p>The latest project of the G.entlemens allows you to keep a close eye on the fluctuating PC part prizes. Also if you're interested in building your own PC from scratch w'll give you a step by step tutorial just click on the PC builder link in the navigation tab!</p>
 	</div><!--close site_content-->
-		<div id="main_wrapper">
-		
-		 <%
-                ArrayList<String> VideocardNames = new ArrayList<String>(); 
-				 ArrayList<String> VideocardPrice = new ArrayList<String>();
-				  ArrayList<String> VideocardPhoto = new ArrayList<String>();
-			
+    </p>
+		<div id="main_wrapper" width='800px' height='720px'>		
+		 <%		
+            String product = "Videocard";
             try {
                 Connection con = (Connection) DriverManager.getConnection("jdbc:neo4j://localhost:7474/");
-                String query = ("Match (n:`Videocard`) return n");
+                String query = ("Match (n:`"+product+"`) return n");
             try (PreparedStatement stmt = con.prepareStatement(query)) {
             try(ResultSet rs = stmt.executeQuery()){
 				while (rs.next()) {
@@ -63,14 +61,21 @@
                     String photo = jso.get("Photo").toString();
 					String name = jso.get("Name").toString();
 					String price = jso.get("Price").toString();
-					VideocardNames.add(name);
-					VideocardPrice.add(price);
-					VideocardPhoto.add(photo);
-                    
+					String link = jso.get("Link").toString();
+					String description = jso.get("Description").toString();					
         %>
-					 <%
-                   // System.out.println(rs.getString("n"));
-                    
+            <div class = "product_wrapper"> 	
+                <br><img src=<%=photo%> width="50%" height="50%"/></br>
+			    <br><%=name%></br>
+			    <br>€ <%=price%></br>
+			    <div id = "hover_info">
+                    <p><b style='Color: Black'><h5><%=name%></h5></b> <img src=<%=photo%> width="25%" height="25%"/></p>
+                    <p><a href=<%=link%> target="_blank" class='linkToWebsite'>Go to website</a></p>	
+					<b style='Color: Black'>Description:</b>		
+                    <p><%=description%></p>														
+				</div>
+			</div>	
+    	<%
                 }
             }
         }
@@ -81,19 +86,7 @@
                 out.write(e.getMessage());
             }
          %>
-			
-		<%	for(int i = 0; i < 500; i++)
-			{ %>
-			<div id = <%= i %> class = "product_wrapper"> 
-			  <br><img src=<%=VideocardPhoto.get(i)%> width="50%" height="50%"/></br>
-			  <br><%=VideocardNames.get(i)%></br>
-			  <br>€ <%=VideocardPrice.get(i)%></br>
-			</div>	
-		<%		} %>
-				 	
-
-			
 		</div><!--close main_wrapper-->
-
+        </div>
 	</body>
 </html>
